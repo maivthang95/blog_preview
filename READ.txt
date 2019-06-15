@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 This is note.
 I will explain this source in here
 #########
 
 @@@@@@@@@
+=======
+This is note
+>>>>>>> parent of 9356333... modify READ.txt
