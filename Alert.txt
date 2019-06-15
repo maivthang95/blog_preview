@@ -1,3 +1,0 @@
-This is alert.txt
-Alert-danger
-Alert-primary
