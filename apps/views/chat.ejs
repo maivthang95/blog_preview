@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Chat</title>
+	
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+     <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 13px Helvetica, Arial; }
+      form { background: #000; padding: 3px; position: fixed; bottom: 10px; width: 80%; }
+      form input { border: 0; padding: 10px; width: 90% ;margin-right: .5%; }
+      
+      #conversation { list-style-type: none; margin: 0; padding: 0; }
+      #conversation li { padding: 5px 10px; }
+      #conversation li:nth-child(odd) { background: #eee; }
+    </style>
+</head>
+<body>
+	<div class="container">
+		<ul id="conversation">
+		
+		</ul>
+		<form>
+			<input type="text"   name="message" id="message" placeholder="Enter message">
+			
+			<button type="button" class="btn btn-primary" id="send" on>Send</button>
+		</form>
+	</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <script>
+        var socket = io.connect("http://localhost:1111");
+        
+        var username = prompt("Enter your name"); 
+        socket.emit("addUsername", username); 
+
+        socket.on( "updateMessage" , function(data){
+            $("#conversation").append("<li><b>" + data.sender + "</b>: " + data.message  +"</li>")
+        })
+
+        $("#send").click(function(e){
+            var message = $("#message").val() ;
+            if(message.trim().length != 0 ){
+                socket.emit("sendMessage" , message) ; 
+            }
+            $("#message").val("");
+        })
+
+        //Click enter
+
+        $("#message").keypress(function(e){
+           
+            if(e.which == 13){
+                 e.preventDefault();
+                $("#send").trigger("click");
+            }
+        })
+
+        var numberUser = setInterval( curUser ,  10000) ;
+        function curUser(){
+            socket.on("updateUser" ,  function(data){
+                 $("#conversation").append("<li><b>" + data.sender + "</b>: " + data.message  +"</li>")
+            })
+        }
+    </script>
+</body>
+</html>

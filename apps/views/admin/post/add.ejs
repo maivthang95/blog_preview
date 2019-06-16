@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script>
+         <script>tinymce.init({selector:'textarea'});</script>
+        <%include ../layout/head%>
+    </head>
+    <body>
+    <div class="container">
+        <div class="panel panel-primary" style="margin-top:50px">
+            <div class="panel-heading">
+                <h3 class="panel-title">Add News Post</h3>
+            </div>
+            <div class="panel-body">
+                <form action="" method="POST" role="form">
+                    <%if (data && data.error) {%>
+                    <div class="alert alert-danger">
+                        Error : <span><%= data.error %></span>
+                    </div>
+                    <%}%>
+
+                    <div class="form-group">
+                        <label for="">Title: </label>
+                        <input type="text" class="form-control" name="title" id="" placeholder="Enter title">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="">Content: </label>
+                        <textarea class="form-control" name="content" placeholder="Enter Content">
+                            
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Author : </label>
+                        <input type="text" class="form-control" name="author" id="" placeholder="author">
+                    </div>
+                    
+                
+                    <button type="submit" class="btn btn-primary">Submit</button>
+		        </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            formats: {
+                // Changes the default format for h1 to have a class of heading
+                h1: { block: 'h1', classes: 'heading' }
+            },
+            style_formats: [
+                // Adds the h1 format defined above to style_formats
+                { title: 'My heading', format: 'h1' }
+            ]
+            });
+    </script>
+    </body>
+</html>

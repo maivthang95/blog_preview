@@ -1,0 +1,37 @@
+
+<div class="container">
+    <a class="btn btn-primary pull-right" href="/admin/post/add" style="margin-bottom:10px">Add new Post</a>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Author</th>
+                <th>Created Date</th>
+                <th>Updated Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(data && data.posts ) {%>
+                <% for(var i=0 ; i < data.posts.length ; i++) {%>
+            <tr>
+                <td><%= i+1 %></td>
+                <td><%= data.posts[i].title %></td>
+                <td><%= data.posts[i].content %></td>
+                <td><%= data.posts[i].author %></td>
+                <td><%= data.posts[i].created_date %></td>
+                <td><%= data.posts[i].updated_date %></td>
+                <td>
+                    <a href="/admin/post/edit/<%= data.posts[i].id %>" class="btn btn-success" >Edit</a>
+                    <button class="btn btn-danger post_delete" post_id="<%= data.posts[i].id %>">Delete</button>
+                </td>
+            </tr>
+                <%}%>
+            <%}%> 
+        </tbody>
+    </table>
+</div>
+<script src="/static/js/post.js" style="text/javascript"></script>
+
