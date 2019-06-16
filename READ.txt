@@ -1,2 +1,0 @@
-hello , this is head.txt
-Xin chào mọi người
